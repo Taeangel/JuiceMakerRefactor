@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
+  @ObservedObject var viewModel = MainViewModel()
+  var body: some View {
+    NavigationView {
+      VStack {
+
+      }
+      .navigationTitle("맛잇는 쥬스를 만들어 드려요!")
     }
+    .navigationViewStyle(.stack)
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
