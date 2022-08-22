@@ -15,6 +15,9 @@
 		86482E1E28A84F04000D064F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86482E1D28A84F04000D064F /* MainViewModel.swift */; };
 		86482E2028A84F1F000D064F /* Juice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86482E1F28A84F1F000D064F /* Juice.swift */; };
 		86482E2428A84F88000D064F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86482E2328A84F88000D064F /* Error.swift */; };
+		865C9C4528AC399D001E25E8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 865C9C4428AC399D001E25E8 /* Collections */; };
+		865C9C4728AC399D001E25E8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 865C9C4628AC399D001E25E8 /* OrderedCollections */; };
+		865C9C4B28AED75C001E25E8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865C9C4A28AED75C001E25E8 /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,7 @@
 		86482E1D28A84F04000D064F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		86482E1F28A84F1F000D064F /* Juice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Juice.swift; sourceTree = "<group>"; };
 		86482E2328A84F88000D064F /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		865C9C4A28AED75C001E25E8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				865C9C4728AC399D001E25E8 /* OrderedCollections in Frameworks */,
+				865C9C4528AC399D001E25E8 /* Collections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +67,7 @@
 			children = (
 				86482E0C28A84A09000D064F /* JuiceMakerRefactorApp.swift */,
 				86482E0E28A84A09000D064F /* ContentView.swift */,
+				865C9C4A28AED75C001E25E8 /* EditView.swift */,
 				86482E1A28A84EE5000D064F /* Model */,
 				86482E1028A84A0A000D064F /* Assets.xcassets */,
 				86482E1228A84A0A000D064F /* Preview Content */,
@@ -103,6 +110,10 @@
 			dependencies = (
 			);
 			name = JuiceMakerRefactor;
+			packageProductDependencies = (
+				865C9C4428AC399D001E25E8 /* Collections */,
+				865C9C4628AC399D001E25E8 /* OrderedCollections */,
+			);
 			productName = JuiceMakerRefactor;
 			productReference = 86482E0928A84A09000D064F /* JuiceMakerRefactor.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +142,9 @@
 				Base,
 			);
 			mainGroup = 86482E0028A84A09000D064F;
+			packageReferences = (
+				865C9C4328AC399D001E25E8 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 86482E0A28A84A09000D064F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -158,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86482E1C28A84EF5000D064F /* Fruit.swift in Sources */,
+				865C9C4B28AED75C001E25E8 /* EditView.swift in Sources */,
 				86482E0F28A84A09000D064F /* ContentView.swift in Sources */,
 				86482E1E28A84F04000D064F /* MainViewModel.swift in Sources */,
 				86482E0D28A84A09000D064F /* JuiceMakerRefactorApp.swift in Sources */,
@@ -365,6 +380,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		865C9C4328AC399D001E25E8 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		865C9C4428AC399D001E25E8 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 865C9C4328AC399D001E25E8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		865C9C4628AC399D001E25E8 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 865C9C4328AC399D001E25E8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 86482E0128A84A09000D064F /* Project object */;
 }

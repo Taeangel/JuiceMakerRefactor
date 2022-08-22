@@ -5,11 +5,11 @@
 //  Created by song on 2022/08/14.
 //
 
-import Foundation
 import UIKit
+import Combine
 
-class MainViewModel: ObservableObject {
-  private(set) var stock = [Fruit: Int]()
+class fruitStockService {
+  @Published var stock = [Fruit: Int]()
   
   init() {
     initsetting()
@@ -50,9 +50,55 @@ class MainViewModel: ObservableObject {
       return .failure(.notExistFruit)
     }
     guard canMake(recipe) else {
+      print("모잘라요")
       return .failure(.outOfStock)
+      
     }
     consumeStock(of: recipe)
     return .success(juice)
+  }
+}
+
+class MainViewModel: ObservableObject {
+  
+  @Published var stock = [Fruit: Int]()
+  private(set) var fruitInformation = [Fruit]()
+  private(set) var JuiceInformation = [Juice]()
+  private var cancellable = Set<AnyCancellable>()
+  private let fruitModel = fruitStockService()
+  
+  init() {
+    initsetting()
+    addSubscribers()
+  }
+  
+  private func initsetting() {
+    
+    for fruit in Fruit.allCases {
+      fruitInformation.append(fruit)
+    }
+    
+    for juice in Juice.allCases {
+      JuiceInformation.append(juice)
+    }
+  }
+  
+  private func addSubscribers() {
+    self.fruitModel.$stock
+      .sink { Completion in
+        switch Completion {
+        case .finished:
+          break
+        case .failure(let error):
+          print("\(error)")
+        }
+      } receiveValue: { [weak self] returnValue in
+        self?.stock = returnValue
+      }
+      .store(in: &cancellable)
+  }
+  
+  func make(_ juice: Juice) {
+    fruitModel.make(juice)
   }
 }

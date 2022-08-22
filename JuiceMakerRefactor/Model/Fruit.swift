@@ -15,18 +15,18 @@ enum Fruit: Int, CaseIterable {
   case kiwi
   case mango
   
-  var image: UIImage {
+  var name: String {
     switch self {
     case .strawberry:
-      return UIImage(named: "딸기") ?? UIImage()
+      return "딸기"
     case .banana:
-      return UIImage(named: "바나나") ?? UIImage()
+      return "바나나"
     case .pineapple:
-      return UIImage(named: "파인애플") ?? UIImage()
+      return "파인애플"
     case .kiwi:
-      return UIImage(named: "키위") ?? UIImage()
+      return "키위"
     case .mango:
-      return UIImage(named: "망고") ?? UIImage()
+      return "망고"
     }
   }
 }
