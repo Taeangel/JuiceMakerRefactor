@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import Combine
-
 
 struct MainView: View {
   @StateObject var viewModel = MainViewModel()
@@ -21,7 +19,6 @@ struct MainView: View {
                 .resizable()
                 .frame(width: 100, height: 100)
               Text("\(viewModel.stock[fruit] ?? 0)")
-              
             }
             .padding(30)
           }
@@ -42,10 +39,13 @@ struct MainView: View {
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(action: {
-            EditView(service: viewModel.fruitModel)
+            viewModel.isShowModal = true
           }, label: {
             Text("edit")
           })
+          .sheet(isPresented: $viewModel.isShowModal) {
+            EditView(service: viewModel.fruitModel, isShowMoadl: $viewModel.isShowModal)
+          }
         }
       }
     }
@@ -57,7 +57,6 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     MainView()
       .previewInterfaceOrientation(.landscapeRight)
-
   }
 }
 

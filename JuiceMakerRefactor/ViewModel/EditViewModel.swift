@@ -6,15 +6,18 @@
 //
 
 import Combine
+import SwiftUI
 
 class EdithViewModel: ObservableObject {
   private(set) var fruitInformation = [Fruit]()
   private let fruitStockService: FruitStockService
   private var cancellable = Set<AnyCancellable>()
   @Published var stock = [Fruit: Int]()
+  @Binding var isShowModal: Bool
   
-  init(fruitStockService: FruitStockService) {
+  init(fruitStockService: FruitStockService, isShowModal: Binding<Bool>) {
     self.fruitStockService = fruitStockService
+    self._isShowModal = isShowModal
     self.initsetting()
     self.addSubscribers()
   }

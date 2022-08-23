@@ -10,6 +10,7 @@ import Combine
 class MainViewModel: ObservableObject {
   
   @Published var stock = [Fruit: Int]()
+  @Published var isShowModal = false
   private(set) var fruitInformation = [Fruit]()
   private(set) var JuiceInformation = [Juice]()
   private var cancellable = Set<AnyCancellable>()

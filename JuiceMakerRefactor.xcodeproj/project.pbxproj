@@ -72,12 +72,11 @@
 			isa = PBXGroup;
 			children = (
 				86482E0C28A84A09000D064F /* JuiceMakerRefactorApp.swift */,
-				86482E0E28A84A09000D064F /* MainView.swift */,
-				865C9C4A28AED75C001E25E8 /* EditView.swift */,
-				865C9C9328B3712D001E25E8 /* Service */,
+				865C9CB928B579F3001E25E8 /* View */,
 				865C9C9628B371D6001E25E8 /* ViewModel */,
-				865C9CB628B418A2001E25E8 /* Extension */,
+				865C9C9328B3712D001E25E8 /* Service */,
 				86482E1A28A84EE5000D064F /* Model */,
+				865C9CB628B418A2001E25E8 /* Extension */,
 				86482E1028A84A0A000D064F /* Assets.xcassets */,
 				86482E1228A84A0A000D064F /* Preview Content */,
 			);
@@ -125,6 +124,15 @@
 				865C9CB728B418B7001E25E8 /* Color+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		865C9CB928B579F3001E25E8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86482E0E28A84A09000D064F /* MainView.swift */,
+				865C9C4A28AED75C001E25E8 /* EditView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
