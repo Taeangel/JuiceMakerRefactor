@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct EditView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+  @StateObject var viewModel: EdithViewModel
+  
+  init(service: FruitStockService) {
+    _viewModel = StateObject(wrappedValue: EdithViewModel(fruitStockService: service))
+  }
+  
+  var body: some View {
+    
+    NavigationView {
+      VStack {
+        
+      }
+      .navigationTitle("재고 추가")
+      .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button(action: {
 
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView()
+          }, label: {
+            Text("닫기")
+          })
+        }
+      }
     }
+    .navigationViewStyle(.stack)
+  }
 }

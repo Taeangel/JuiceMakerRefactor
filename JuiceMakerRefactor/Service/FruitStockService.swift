@@ -7,7 +7,7 @@
 
 import Combine
 
-class fruitStockService {
+class FruitStockService {
   @Published var stock = [Fruit: Int]()
   
   init() {

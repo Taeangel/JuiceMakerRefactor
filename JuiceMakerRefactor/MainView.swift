@@ -11,7 +11,6 @@ import Combine
 
 struct MainView: View {
   @StateObject var viewModel = MainViewModel()
-  
   var body: some View {
     NavigationView {
       VStack {
@@ -36,13 +35,14 @@ struct MainView: View {
              Text("\(juice.rawValue) 버튼")
            })
           }
+          .padding(30)
         }
       }
       .navigationTitle("맛잇는 쥬스를 만들어 드려요!")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(action: {
-
+            EditView(service: viewModel.fruitModel)
           }, label: {
             Text("edit")
           })
@@ -56,6 +56,8 @@ struct MainView: View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     MainView()
+      .previewInterfaceOrientation(.landscapeRight)
+
   }
 }
 

@@ -1,23 +1,22 @@
 //
-//  FruitStore.swift
+//  EditViewModel.swift
 //  JuiceMakerRefactor
 //
-//  Created by song on 2022/08/14.
+//  Created by song on 2022/08/22.
 //
 
 import Combine
 
-class MainViewModel: ObservableObject {
-  
-  @Published var stock = [Fruit: Int]()
+class EdithViewModel: ObservableObject {
   private(set) var fruitInformation = [Fruit]()
-  private(set) var JuiceInformation = [Juice]()
+  private let fruitStockService: FruitStockService
   private var cancellable = Set<AnyCancellable>()
-  let fruitModel = FruitStockService()
+  @Published var stock = [Fruit: Int]()
   
-  init() {
-    initsetting()
-    addSubscribers()
+  init(fruitStockService: FruitStockService) {
+    self.fruitStockService = fruitStockService
+    self.initsetting()
+    self.addSubscribers()
   }
   
   private func initsetting() {
@@ -25,14 +24,10 @@ class MainViewModel: ObservableObject {
     for fruit in Fruit.allCases {
       fruitInformation.append(fruit)
     }
-    
-    for juice in Juice.allCases {
-      JuiceInformation.append(juice)
-    }
   }
   
   private func addSubscribers() {
-    self.fruitModel.$stock
+    self.fruitStockService.$stock
       .sink { Completion in
         switch Completion {
         case .finished:
@@ -44,9 +39,5 @@ class MainViewModel: ObservableObject {
         self?.stock = returnValue
       }
       .store(in: &cancellable)
-  }
-  
-  func make(_ juice: Juice) {
-    fruitModel.make(juice)
   }
 }
