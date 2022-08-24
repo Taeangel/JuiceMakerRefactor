@@ -9,14 +9,28 @@ import Combine
 
 class MainViewModel: ObservableObject {
   
-  @Published var stock = [Fruit: Int]()
-  @Published var isShowModal = false
-  private(set) var fruitInformation = [Fruit]()
-  private(set) var JuiceInformation = [Juice]()
-  private var cancellable = Set<AnyCancellable>()
-  let fruitModel = FruitStockService()
+  @Published var stock: [Fruit: Int]
+  @Published var isShowModal: Bool
+  private(set) var fruitInformation: [Fruit]
+  private(set) var JuiceInformation: [Juice]
+  private var cancellable: Set<AnyCancellable>
+  let fruitModel: FruitStockService
   
-  init() {
+  init(
+    stock: [Fruit: Int] = [Fruit: Int](),
+    isShowModal: Bool = false,
+    fruitInformation: [Fruit] = [Fruit](),
+    JuiceInformation: [Juice] = [Juice](),
+    cancellable: Set<AnyCancellable> = Set<AnyCancellable>(),
+    fruitModel: FruitStockService = FruitStockService()
+  ) {
+    self.stock = stock
+    self.isShowModal = isShowModal
+    self.fruitInformation = fruitInformation
+    self.JuiceInformation = JuiceInformation
+    self.cancellable = cancellable
+    self.fruitModel = fruitModel
+    
     initsetting()
     addSubscribers()
   }

@@ -9,15 +9,26 @@ import Combine
 import SwiftUI
 
 class EdithViewModel: ObservableObject {
-  private(set) var fruitInformation = [Fruit]()
+  private(set) var fruitInformation: [Fruit]
   private let fruitStockService: FruitStockService
-  private var cancellable = Set<AnyCancellable>()
-  @Published var stock = [Fruit: Int]()
+  private var cancellable: Set<AnyCancellable>
+  @Published var stock: [Fruit: Int]
   @Binding var isShowModal: Bool
   
-  init(fruitStockService: FruitStockService, isShowModal: Binding<Bool>) {
+  init(
+    fruitStockService: FruitStockService,
+    isShowModal: Binding<Bool>,
+    fruitInformation: [Fruit] = [Fruit](),
+    cancellable: Set<AnyCancellable> = Set<AnyCancellable>(),
+    stock: [Fruit: Int] = [Fruit: Int]()
+  
+  ) {
     self.fruitStockService = fruitStockService
     self._isShowModal = isShowModal
+    self.fruitInformation = fruitInformation
+    self.cancellable = cancellable
+    self.stock = stock
+    
     self.initsetting()
     self.addSubscribers()
   }
@@ -42,5 +53,13 @@ class EdithViewModel: ObservableObject {
         self?.stock = returnValue
       }
       .store(in: &cancellable)
+  }
+  
+  func plusStock(of fruit: Fruit, _ value: Int) {
+    fruitStockService.plusStock(of: fruit, value)
+  }
+  
+  func minusStock(of fruit: Fruit, _ value: Int) {
+    fruitStockService.minusStock(of: fruit, value)
   }
 }

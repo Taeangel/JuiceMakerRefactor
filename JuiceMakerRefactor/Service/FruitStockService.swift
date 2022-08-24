@@ -39,8 +39,12 @@ class FruitStockService {
     stock.merge(fruits) { $0 - $1 }
   }
   
-  func setStock(of fruit: Fruit, _ value: Int) {
-    stock[fruit] = value
+  func plusStock(of fruit: Fruit, _ value: Int) {
+    stock[fruit]! += value
+  }
+  
+  func minusStock(of fruit: Fruit, _ value: Int) {
+    stock[fruit]! -= value
   }
   
   func make(_ juice: Juice) -> Result<Juice, MakeJuiceError> {
@@ -56,4 +60,5 @@ class FruitStockService {
     consumeStock(of: recipe)
     return .success(juice)
   }
+
 }

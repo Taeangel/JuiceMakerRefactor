@@ -24,6 +24,13 @@ struct EditView: View {
                 .resizable()
                 .frame(width: 100, height: 100)
               Text("\(viewModel.stock[fruit] ?? 0)")
+              Stepper("",
+                      onIncrement: {
+                viewModel.plusStock(of: fruit, 1)
+              },
+                      onDecrement: {
+                viewModel.minusStock(of: fruit, 1)
+              })
             }
             .padding(30)
           }
