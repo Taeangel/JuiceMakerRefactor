@@ -8,14 +8,15 @@
 import Combine
 
 class FruitStockService {
-  @Published var stock = [Fruit: Int]()
+  @Published var stock: [Fruit: Int]
   
-  init() {
+  init(stock: [Fruit: Int] = [Fruit: Int]()) {
+    self.stock = stock
     initsetting()
   }
   
   private func initsetting() {
-    let defaultCount = 30
+    let defaultCount = 98
     
     for fruit in Fruit.allCases {
       stock[fruit] = defaultCount
@@ -39,12 +40,31 @@ class FruitStockService {
     stock.merge(fruits) { $0 - $1 }
   }
   
+  private func isPlusStock(of fruit: Fruit) -> Bool {
+    return stock[fruit] != 99
+  }
+  
+  private func isMinusStock(of fruit: Fruit) -> Bool {
+    return stock[fruit] != 0
+  }
+  
   func plusStock(of fruit: Fruit, _ value: Int) {
-    stock[fruit]! += value
+    guard isPlusStock(of: fruit) else {
+      return
+    }
+    
+    let newValue = stock[fruit].map { $0 + value }
+    
+    stock[fruit] = newValue
   }
   
   func minusStock(of fruit: Fruit, _ value: Int) {
-    stock[fruit]! -= value
+    guard isMinusStock(of: fruit) else {
+      return
+    }
+    let newValue = stock[fruit].map { $0 - value }
+    
+    stock[fruit] = newValue
   }
   
   func make(_ juice: Juice) -> Result<Juice, MakeJuiceError> {
@@ -60,5 +80,5 @@ class FruitStockService {
     consumeStock(of: recipe)
     return .success(juice)
   }
-
 }
+

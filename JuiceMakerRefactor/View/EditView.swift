@@ -11,7 +11,8 @@ struct EditView: View {
   @StateObject var viewModel: EdithViewModel
   
   init(service: FruitStockService, isShowMoadl: Binding<Bool>) {
-    _viewModel = StateObject(wrappedValue: EdithViewModel(fruitStockService: service, isShowModal: isShowMoadl))
+    _viewModel = StateObject(wrappedValue: EdithViewModel(fruitStockService: service,
+                                                          isShowModal: isShowMoadl))
   }
   
   var body: some View {
@@ -24,7 +25,7 @@ struct EditView: View {
                 .resizable()
                 .frame(width: 100, height: 100)
               Text("\(viewModel.stock[fruit] ?? 0)")
-              Stepper("",
+              Stepper("여기엔 멀써야 될까????",
                       onIncrement: {
                 viewModel.plusStock(of: fruit, 1)
               },
