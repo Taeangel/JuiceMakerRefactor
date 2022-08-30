@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct EditView: View {
-  @StateObject var viewModel: EdithViewModel
-  
-  init(service: FruitStockService, isShowMoadl: Binding<Bool>) {
-    _viewModel = StateObject(wrappedValue: EdithViewModel(fruitStockService: service,
-                                                          isShowModal: isShowMoadl))
+struct StockEditView: View {
+  @StateObject var viewModel: StockEdithViewModel
+  @EnvironmentObject var viewRouter: ViewRouter
+
+  init(service: FruitStockService) {
+    self._viewModel = StateObject(wrappedValue: StockEdithViewModel(fruitStockService: service))
   }
   
   var body: some View {
@@ -41,7 +41,7 @@ struct EditView: View {
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(action: {
-            viewModel.isShowModal = false
+            viewRouter.currentPage = "JuiceOrderView"
           }, label: {
             Text("닫기")
           })

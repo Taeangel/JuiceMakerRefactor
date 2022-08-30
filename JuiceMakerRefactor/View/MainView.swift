@@ -1,63 +1,29 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  JuiceMakerRefactor
 //
-//  Created by song on 2022/08/14.
+//  Created by song on 2022/08/26.
 //
 
 import SwiftUI
 
 struct MainView: View {
-  @StateObject var viewModel = MainViewModel()
+  @StateObject var viewModel: MainViewModel
+  @EnvironmentObject var viewRouter: ViewRouter
+  
+  init() {
+    self._viewModel = StateObject(wrappedValue: MainViewModel())
+    Theme.navigationBarColors(background: .white, titleColor: .red)
+  }
+  
   var body: some View {
-    NavigationView {
-      VStack {
-        HStack {
-          ForEach(viewModel.fruitInformation, id: \.self) { fruit in
-            VStack{
-              Image(uiImage: UIImage(named: fruit.name) ?? UIImage())
-                .resizable()
-                .frame(width: 100, height: 100)
-              Text("\(viewModel.stock[fruit] ?? 0)")
-            }
-            .padding(30)
-          }
-        }
-        
-        HStack {
-          ForEach(viewModel.JuiceInformation, id: \.self) { juice in
-            Button(action: {
-              viewModel.make(juice)
-           }, label: {
-             Text("\(juice.rawValue) 버튼")
-           })
-          }
-          .padding(30)
-        }
+    VStack {
+      if viewRouter.currentPage == "JuiceOrderView" {
+        JuiceOrderView(service: viewModel.fruitModel)//호옹이
       }
-      .navigationTitle("맛잇는 쥬스를 만들어 드려요!")
-      .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button(action: {
-            viewModel.isShowModal = true
-          }, label: {
-            Text("edit")
-          })
-          .sheet(isPresented: $viewModel.isShowModal) {
-            EditView(service: viewModel.fruitModel, isShowMoadl: $viewModel.isShowModal)
-          }
-        }
+      else if viewRouter.currentPage == "StockEditView" {
+        StockEditView(service: viewModel.fruitModel)
       }
     }
-    .navigationViewStyle(.stack)
   }
 }
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    MainView()
-      .previewInterfaceOrientation(.landscapeRight)
-  }
-}
-
-

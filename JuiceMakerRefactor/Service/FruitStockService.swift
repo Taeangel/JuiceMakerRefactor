@@ -5,7 +5,7 @@
 //  Created by song on 2022/08/22.
 //
 
-import Combine
+import SwiftUI
 
 class FruitStockService {
   @Published var stock: [Fruit: Int]
@@ -16,7 +16,7 @@ class FruitStockService {
   }
   
   private func initsetting() {
-    let defaultCount = 98
+    let defaultCount = 2
     
     for fruit in Fruit.allCases {
       stock[fruit] = defaultCount
@@ -29,11 +29,20 @@ class FruitStockService {
       .count == fruits.count
   }
   
-  private func canMake(_ fruits: [Fruit: Int]) -> Bool {
+  func canMake(_ fruits: [Fruit: Int]) -> Bool {
     return self.stock
       .merging(fruits) { $0 - $1 }
       .filter { $0.value < Int.zero }
       .count == Int.zero
+  }
+  
+  func canAllMake() -> [Bool] {
+    var asd: [Bool] = []
+   
+    for i in Juice.allCases {
+      asd.append(canMake(i.recipe))
+    }
+    return asd
   }
   
   private func consumeStock(of fruits: [Fruit: Int]) {
@@ -62,6 +71,7 @@ class FruitStockService {
     guard isMinusStock(of: fruit) else {
       return
     }
+    
     let newValue = stock[fruit].map { $0 - value }
     
     stock[fruit] = newValue
@@ -69,16 +79,19 @@ class FruitStockService {
   
   func make(_ juice: Juice) -> Result<Juice, MakeJuiceError> {
     let recipe = juice.recipe
+    
     guard checkStock(of: recipe) else {
       return .failure(.notExistFruit)
     }
+    
     guard canMake(recipe) else {
       print("모잘라요")
       return .failure(.outOfStock)
-      
     }
+    
     consumeStock(of: recipe)
     return .success(juice)
   }
 }
 
+// CombineLatest alert 화면 이동

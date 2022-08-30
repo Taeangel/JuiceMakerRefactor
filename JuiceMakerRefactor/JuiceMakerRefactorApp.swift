@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct JuiceMakerRefactorApp: App {
+  let viewRouter = ViewRouter()
   var body: some Scene {
     WindowGroup {
       MainView()
+        .environmentObject(viewRouter)
     }
   }
 }
