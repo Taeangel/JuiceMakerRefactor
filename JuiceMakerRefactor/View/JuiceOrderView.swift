@@ -31,16 +31,17 @@ struct JuiceOrderView: View {
         }
         
         HStack {
-          ForEach(viewModel.JuiceInformation, id: \.self) { juice in
+          ForEach(viewModel.juiceInformation.keys.sorted(by: <), id: \.self) { juice in
             Button(action: {
               viewModel.make(juice)
            }, label: {
              Text("\(juice.rawValue) 버튼")
            })
+            .disabled(!viewModel.juiceInformation[juice]!)
           }
           .padding(30)
+          .alert("\(viewModel.alertInformation)", isPresented: $viewModel.isAlert, actions: {})
         }
-//        .disabled(!viewModel.isButtonValid)
       }
       .navigationTitle("맛잇는 쥬스를 만들어 드려요!")
       

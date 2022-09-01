@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum Juice: String, CaseIterable {
+enum Juice: String, CaseIterable, Comparable {
+  static func < (lhs: Juice, rhs: Juice) -> Bool {
+    lhs.rawValue < rhs.rawValue
+  }
+  
   case strawberry = "딸기쥬스"
   case banana = "바나나쥬스"
   case pineapple = "파인애플쥬스"
@@ -33,5 +37,11 @@ enum Juice: String, CaseIterable {
     case .mangoKiwi:
       return [.mango: 2, .kiwi: 1]
     }
+  }
+}
+
+extension Juice: CustomStringConvertible {
+  var description: String {
+    return "\(self.rawValue) 나왔습니다! 맛있게 드세요!"
   }
 }

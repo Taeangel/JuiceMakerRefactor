@@ -16,7 +16,7 @@ class FruitStockService {
   }
   
   private func initsetting() {
-    let defaultCount = 2
+    let defaultCount = 99
     
     for fruit in Fruit.allCases {
       stock[fruit] = defaultCount
@@ -29,20 +29,28 @@ class FruitStockService {
       .count == fruits.count
   }
   
-  func canMake(_ fruits: [Fruit: Int]) -> Bool {
+  private func canMake(_ fruits: [Fruit: Int]) -> Bool {
     return self.stock
       .merging(fruits) { $0 - $1 }
       .filter { $0.value < Int.zero }
       .count == Int.zero
   }
   
-  func canAllMake() -> [Bool] {
-    var asd: [Bool] = []
+  func canMake2(_ fruits: [Fruit: Int]) -> Bool {
+    return self.stock
+      .merging(fruits) { $0 - $1 }
+      .merging(fruits) { $0 - $1 }
+      .filter { $0.value < Int.zero }
+      .count == Int.zero
+  }
+  
+  func canMakeAll() -> [Juice: Bool] {
+    var buttonVaild: [Juice: Bool] = [:]
    
     for i in Juice.allCases {
-      asd.append(canMake(i.recipe))
+      buttonVaild.updateValue(canMake2(i.recipe), forKey: i)
     }
-    return asd
+    return buttonVaild
   }
   
   private func consumeStock(of fruits: [Fruit: Int]) {
@@ -93,5 +101,3 @@ class FruitStockService {
     return .success(juice)
   }
 }
-
-// CombineLatest alert 화면 이동
